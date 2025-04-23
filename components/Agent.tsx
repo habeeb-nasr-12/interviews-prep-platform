@@ -105,7 +105,7 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
           userid: userId,
           type,
         },
-        
+
       });
     } catch (error) {
       console.error("Failed to start vapi:", error);
@@ -183,7 +183,7 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
             </span>
           </button>
         ) : (
-          <button className="btn-disconnect" onClick={handleDisconnect}>
+          <button className="btn-disconnect my-3" onClick={handleDisconnect}>
             End
           </button>
         )}
