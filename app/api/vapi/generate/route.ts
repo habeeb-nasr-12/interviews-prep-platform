@@ -1,25 +1,29 @@
 import { generateText } from "ai";
-import { google } from "@ai-sdk/google"
+import { google } from "@ai-sdk/google";
 import { getRandomInterviewCover } from "@/lib/utils";
 import { db } from "@/firebase/admin";
 
 export async function GET() {
-    return Response.json({
-        success: true,
-        data: "Thank you"
-    }, {
-        status: 200
-    })
+  return Response.json(
+    {
+      success: true,
+      data: "Thank you",
+    },
+    {
+      status: 200,
+    }
+  );
 }
 export async function POST(request: Request) {
-    const { type, role, level, techStack, amount, company, userId } = await request.json();
-    try {
-        const { text } = await generateText({
-            model: google('gemini-2.0-flash-001'),
-            prompt: `Prepare questions for a job interview.
+  const { type, role, level, techstack, amount, company, userid } =
+    await request.json();
+  try {
+    const { text } = await generateText({
+      model: google("gemini-2.0-flash-001"),
+      prompt: `Prepare questions for a job interview.
         The job role is ${role}.
         The job experience level is ${level}.
-        The tech stack used in the job is: ${techStack}.
+        The tech stack used in the job is: ${techstack}.
         The focus between behavioural and technical questions should lean towards: ${type}.
         The amount of questions required is: ${amount}.
         Please return only the questions, without any additional text.
@@ -28,33 +32,39 @@ export async function POST(request: Request) {
         ["Question 1", "Question 2", "Question 3"]
         
         Thank you! <3
-    `
-        })
-        const interview = {
-            role,
-            type,
-            level,
-            techStack: techStack.split(','),
-            questions: JSON.parse(text),
-            userId,
-            finalized: true,
-            coverImage: getRandomInterviewCover(),
-            createdAt: new Date().toISOString()
-        }
-        await db.collection("interviews").add(interview)
-        return Response.json({
-            success: true,
-            data: "Interview created successfully"
-        }, {
-            status: 200
-        })
-    } catch (error) {
-        console.error(error)
-        return Response.json({
-            success: false,
-            error
-        }, {
-            status: 500
-        })
-    }
+    `,
+    });
+    const interview = {
+      role,
+      type,
+      level,
+      techStack: techstack.split(","),
+      questions: JSON.parse(text),
+      userId: userid,
+      finalized: true,
+      coverImage: getRandomInterviewCover(),
+      createdAt: new Date().toISOString(),
+    };
+    await db.collection("interviews").add(interview);
+    return Response.json(
+      {
+        success: true,
+        data: "Interview created successfully",
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    return Response.json(
+      {
+        success: false,
+        error,
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }
