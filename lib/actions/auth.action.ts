@@ -110,3 +110,8 @@ export async function isAuthenticated(): Promise<boolean> {
     return false;
   }
 }
+
+export const clearCookies = async () => {
+  const cookiesStore = await cookies();
+  cookiesStore.delete("session");
+};

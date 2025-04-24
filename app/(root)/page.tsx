@@ -3,13 +3,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import InterviewCard from '@/components/InterviewCard';
 import { getCurrentUser } from '@/lib/actions/auth.action';
-import { getInterviewsByUserId, getLastestInterviews } from '@/lib/actions/general.action';
+import { getInterviewsByUserId, getLatestInterviews } from '@/lib/actions/general.action';
 
 export default async function Home() {
   const user = await getCurrentUser()
   const [userInterviews, latestInterviews] = await Promise.all([
     getInterviewsByUserId(user?.id!),
-    getLastestInterviews({ userId: user?.id! }),
+    getLatestInterviews({ userId: user?.id! }),
   ])
 
   const hasPassedInterviews = userInterviews?.length > 0;
@@ -45,7 +45,7 @@ export default async function Home() {
         </div>
       </section>
       <section className="flex flex-col gap-6 mt-8">
-        <h2>Take an Interview</h2>
+        <h2>Explore More Interviews - Find Your Next Challenge</h2>
         <div className="interviews-section">
           {hasUpcomingInterviews ? (
             latestInterviews?.map((interview) => (

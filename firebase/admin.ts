@@ -20,4 +20,4 @@ const initFireBaseAdmin = () => {
 };
 
 const { auth, db } = initFireBaseAdmin();
-export { auth, db };
+export { auth, db };    
