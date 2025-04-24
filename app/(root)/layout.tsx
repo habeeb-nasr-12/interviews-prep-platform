@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 import Logout from '@/components/Logout'
 
 
+
+
 const Rootlayout = async ({ children }: { children: ReactNode }) => {
   const isUserAuthenticated = await isAuthenticated();
   if (!isUserAuthenticated)

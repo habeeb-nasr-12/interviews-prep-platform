@@ -1,4 +1,4 @@
-// components/LogoutClient.tsx
+
 "use client";
 
 import { signOut } from "firebase/auth";
@@ -7,7 +7,7 @@ import { auth } from "@/firebase/client";
 import { Button } from "@/components/ui/button";
 import { clearCookies } from "@/lib/actions/auth.action";
 
-export default function LogoutClient() {
+export default function Logout() {
   const router = useRouter();
 
   const handleLogout = async () => {
