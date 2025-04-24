@@ -81,7 +81,7 @@ export async function getCurrentUser(): Promise<User | null> {
     }
     // Get user data from database
     const userDoc = await db.collection("users").doc(decodedClaims.uid).get();
-    
+
     if (!userDoc.exists) {
       return null;
     }
@@ -90,15 +90,14 @@ export async function getCurrentUser(): Promise<User | null> {
     if (!userData) {
       return null;
     }
-    console.log("user doc data" , userDoc?.data);
+    console.log("user doc data", userDoc?.data);
 
     return {
       id: userDoc.id,
-      ...userData
+      ...userData,
     } as User;
-
   } catch (e) {
-    console.error('Error getting current user:', e);
+    console.error("Error getting current user:", e);
     return null;
   }
 }
@@ -110,4 +109,34 @@ export async function isAuthenticated(): Promise<boolean> {
   } catch {
     return false;
   }
+}
+export async function getInterviewsByUserId(
+  userId: string
+): Promise<Interview[] | null> {
+  const interviews = await db
+    .collection("interviews")
+    .where("userId", "==", userId)
+    .orderBy("createdAt", "desc")
+    .get();
+  return interviews.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Interview[];
+}
+
+export async function getLastestInterviews(
+  params: GetLatestInterviewsParams
+): Promise<Interview[] | null> {
+  const { userId, limit = 20 } = params;
+  const interviews = await db
+    .collection("interviews")
+    .orderBy("createdAt", "desc")
+    .where("finalized", "==", true)
+    .where("userId", "!=", userId)
+    .limit(limit)
+    .get();
+  return interviews.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Interview[];
 }
