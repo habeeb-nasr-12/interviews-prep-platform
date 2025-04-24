@@ -7,7 +7,7 @@ import Link from 'next/link'
 import DisplayTechIcons from './DisplayTechIcons';
 
 
-const InterviewCard = ({ id, userId, interviewId, role, techstack, createdAt, type }: InterviewCardProps) => {
+const InterviewCard = ({  userId, id, role, techstack, createdAt, type }: InterviewCardProps) => {
     const feedBack = null as feedBack | null;
     const NormalizedType = /mix/gi.test(type) ? 'mixed' : type;
     const formattedDate = dayjs(feedBack?.createdAt || createdAt || Date.now()).format('MMM D, YYYY');
@@ -48,7 +48,7 @@ const InterviewCard = ({ id, userId, interviewId, role, techstack, createdAt, ty
                 <div className="flex flex-row justify-between my-1">
                     <DisplayTechIcons techstack={techstack} />
 
-                    <Link href={feedBack ? `/interview/${interviewId}/feedback` : `/interview/${interviewId}`}>
+                    <Link href={feedBack ? `/interview/${id}/feedback` : `/interview/${id}`}>
                         <Button className="btn-primary">
                             View Details
                         </Button>
