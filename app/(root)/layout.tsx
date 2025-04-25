@@ -19,7 +19,7 @@ const Rootlayout = async ({ children }: { children: ReactNode }) => {
       <nav className='flex justify-between'>
         <Link className="flex items-center gap-2" href="/">
           <Image src="/logo.svg" alt="Logo" width={38} height={32} />
-          <h2 className="text-primary-100">Habeeb Prep  Platform </h2>
+          <h2 className="text-primary-100 line-clamp-1 ">Habeeb Prep  Platform </h2>
         </Link>
         <Logout />
       </nav>
