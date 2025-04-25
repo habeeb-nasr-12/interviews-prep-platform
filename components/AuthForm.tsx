@@ -97,7 +97,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                         alt='logo'
                         height={32}
                         width={32} />
-                    <h2 className='text-primary-100'>Habeeb AI Prep</h2>
+                    <h2 className='text-primary-100 wrap-normal'>Habeeb AI Prep </h2>
                 </div>
                 <h3 className='text-center'>practice job interview with AI</h3>
                 <Form {...form}>
